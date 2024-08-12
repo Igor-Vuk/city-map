@@ -1,6 +1,6 @@
-# THREE.JS BOILERPLATE
+# CITY MAP
 
-This is a starting point with most useful features already implemented.
+Interactive 3D Map, improved with custom models
 
 ## How to use it?
 
@@ -43,6 +43,7 @@ This is a starting point with most useful features already implemented.
   - **environment map loading**
   - **action, morph, skinned animation loading** - just play different type of animations
   - **curve loading and follow path** - by loading `.json` file with vertices coordinate and calling the `curveMethod` function we can load curves as a mesh or make object follow them (example included)
+  - **assets preloading** - assets like model, texture, hdr... are preloaded so that app starts quicker
 
 - `Custom shaders loading` - create your own custom shaders. Ability to load `.glsl` files is added to vite. Basic fragment and vertex shader example is added and loaded using `shaderMaterial` from drei for ease of use with react components. Hot reload for fragment and vertex shader files is also implemented.
 
@@ -58,9 +59,3 @@ This is a starting point with most useful features already implemented.
   - recommended VSCode extensions are: **ESlin** and **Prettier ESLint** in order to make linting and formatting live while typing
 
 - `style.css` file for styling
-
-## What is the starting model being used?
-
-Starting model is a simple model made in **Blender** exported with Draco compression and imported in three.js. We are also loading basic **diffuse texture** and **environment map**
-
-Model contains **morph(Shape key)** and normal **keyframes** animation

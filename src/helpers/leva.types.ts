@@ -5,13 +5,13 @@ import type { OrbitControls as ThreeOrbitControls } from "three-stdlib"
 
 /* ---------------------------------SceneRender-------------------------------------- */
 export type SceneRenderControlDefaultValues = {
-  orbit_controls: boolean
-  directional_lights: boolean
-  environment_map: boolean
-  soft_shadows: boolean
-  axes_helper: boolean
-  performance_monitor: boolean
-  grid_helper: boolean
+  orbit_controls?: boolean
+  directional_lights?: boolean
+  environment_map?: boolean
+  soft_shadows?: boolean
+  axes_helper?: boolean
+  performance_monitor?: boolean
+  grid_helper?: boolean
 }
 
 export type SceneRenderControlType = {

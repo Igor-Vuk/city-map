@@ -6,12 +6,12 @@ import * as LevaTypes from "./leva.types.ts"
 
 const SceneRenderControl = (): LevaTypes.SceneRenderControlType => {
   const defaultValues: LevaTypes.SceneRenderControlDefaultValues = {
-    orbit_controls: true,
+    // orbit_controls: true,
     directional_lights: true,
     environment_map: true,
     soft_shadows: false,
     axes_helper: false,
-    performance_monitor: false,
+    performance_monitor: true,
     grid_helper: false,
   }
 
@@ -410,8 +410,8 @@ const SoftShadowsControl = (): LevaTypes.SoftShadowsControlType => {
 
 const EnvironmentMapControl = (): LevaTypes.EnvironmentMapControlType => {
   const defaultValues: LevaTypes.EnvironmentMapControlDefaultValues = {
-    background: true,
-    backgroundIntensity: 1.0,
+    background: false,
+    backgroundIntensity: 0,
     backgroundRotation: [0, Math.PI / 2, 0],
     blur: 0,
     environmentIntensity: 1.0,

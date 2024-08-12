@@ -1,10 +1,9 @@
 import { Environment } from "@react-three/drei"
 import { EnvironmentMapControl } from "../helpers/leva"
-
-const environmentMapFiles =
-  "/environmentMaps/kloofendal_48d_partly_cloudy_puresky_1k.hdr"
+import assetsPath from "../data/assetsPath.json"
 
 const EnvironmentMap = () => {
+  console.log("ENVIRONMENT")
   const environmentMap = EnvironmentMapControl()
 
   return (
@@ -15,7 +14,7 @@ const EnvironmentMap = () => {
       backgroundBlurriness={environmentMap.values.blur}
       environmentIntensity={environmentMap.values.environmentIntensity}
       environmentRotation={environmentMap.values.environmentRotation}
-      files={environmentMapFiles}
+      files={assetsPath.environmentMapFiles}
     />
   )
 }

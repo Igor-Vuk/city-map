@@ -1,27 +1,37 @@
-import { Center } from "@react-three/drei"
-import { Suspense, useEffect, useState } from "react"
-import { Canvas } from "@react-three/fiber"
-import * as THREE from "three"
+/* Components with preload inside that is executed as soon as the are imported */
+import { Suspense, useEffect, useState, lazy } from "react"
+import { useLoader } from "@react-three/fiber"
+import { RGBELoader } from "three-stdlib"
+import { useGLTF } from "@react-three/drei"
 import { Leva } from "leva"
+import assetsPath from "./data/assetsPath.json"
 
-import { CanvasControl, SceneRenderControl } from "./helpers/leva"
+/* Mapbox imports */
+import Map from "react-map-gl"
+import { Canvas } from "react-three-map"
+import Mapbox from "mapbox-gl"
+import "mapbox-gl/dist/mapbox-gl.css"
 
-import Camera from "./scene/Camera"
-import Controls from "./scene/Controls"
+// import Fallback from "./models/Fallback"  /* use Fallback component on Suspense if needed */
+import { SceneRenderControl } from "./helpers/leva"
 import DirectionalLight from "./scene/DirectionalLight"
-import EnvironmentMap from "./scene/EnvironmentMap"
 import SoftShadowsModifier from "./scene/SoftShadowsModifier"
 import AxesHelper from "./scene/AxesHelper"
 import PerformanceMonitor from "./scene/PerformanceMonitor"
 import GridHelper from "./scene/GridHelper"
 
-// import Fallback from "./models/Fallback"  /* use Fallback component on Suspense if needed */
-import Models from "./models/Models"
+/* By lazy loading we are separating bundles that load to the browser */
+const EnvironmentMap = lazy(() => import("./scene/EnvironmentMap"))
+const Models = lazy(() => import("./models/Models"))
+
+/* If we have for example map and aoMap for the same object we need to preload them separately */
+useLoader.preload(RGBELoader, assetsPath.environmentMapFiles)
+useGLTF.preload(assetsPath.modelPath)
 
 export default function Experience() {
-  const sceneRender = SceneRenderControl()
-  const canvas = CanvasControl()
+  console.log("EXPERIENCE")
 
+  const sceneRender = SceneRenderControl()
   const [showLeva, setShowLeva] = useState<boolean>(true) //  show or hide leva on first load
 
   useEffect(() => {
@@ -37,8 +47,9 @@ export default function Experience() {
     }
   }, [])
 
+  Mapbox.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN || ""
+
   const {
-    orbit_controls,
     performance_monitor,
     directional_lights,
     soft_shadows,
@@ -47,32 +58,37 @@ export default function Experience() {
     environment_map,
   } = sceneRender.values
 
-  const { toneMapping, colorSpace } = canvas.values
+  const mapStyle = import.meta.env.VITE_MAPSTYLE
+
   return (
     <>
       <Leva collapsed hidden={showLeva} />
-      <Canvas
-        shadows
-        gl={{
-          toneMapping: THREE[toneMapping],
-          outputColorSpace: THREE[colorSpace],
+      <Map
+        antialias
+        mapStyle={mapStyle}
+        initialViewState={{
+          latitude: 45.756005,
+          longitude: 15.934696,
+          zoom: 16.0,
+          pitch: 51,
         }}
       >
-        <Camera />
-        {orbit_controls && <Controls />}
-        {performance_monitor && <PerformanceMonitor />}
-        {directional_lights && <DirectionalLight />}
-        {soft_shadows && <SoftShadowsModifier />}
-        {axes_helper && <AxesHelper />}
-        {grid_helper && <GridHelper />}
-
-        <Center>
+        <Canvas latitude={45.756005} longitude={15.934696}>
+          {performance_monitor && <PerformanceMonitor />}
+          {directional_lights && <DirectionalLight />}
+          {soft_shadows && <SoftShadowsModifier />}
+          {axes_helper && <AxesHelper />}
+          {grid_helper && <GridHelper />}
+          {environment_map && (
+            <Suspense fallback={null}>
+              <EnvironmentMap />
+            </Suspense>
+          )}
           <Suspense fallback={null}>
-            {environment_map && <EnvironmentMap />}
             <Models />
           </Suspense>
-        </Center>
-      </Canvas>
+        </Canvas>
+      </Map>
     </>
   )
 }
