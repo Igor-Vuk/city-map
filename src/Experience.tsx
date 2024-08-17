@@ -2,7 +2,7 @@
 import { Suspense, useEffect, useState, lazy } from "react"
 import { useLoader } from "@react-three/fiber"
 import { RGBELoader } from "three-stdlib"
-import { useGLTF } from "@react-three/drei"
+import { useGLTF, useTexture } from "@react-three/drei"
 import { Leva } from "leva"
 import assetsPath from "./data/assetsPath.json"
 
@@ -24,9 +24,14 @@ import GridHelper from "./scene/GridHelper"
 const EnvironmentMap = lazy(() => import("./scene/EnvironmentMap"))
 const Models = lazy(() => import("./models/Models"))
 
-/* If we have for example map and aoMap for the same object we need to preload them separately */
+/* ------------------- Preload ------------------------------- */
 useLoader.preload(RGBELoader, assetsPath.environmentMapFiles)
-useGLTF.preload(assetsPath.modelPath)
+useGLTF.preload(assetsPath.cityBuildings)
+useGLTF.preload(assetsPath.cityModels)
+useTexture.preload(
+  assetsPath.testTexture.map,
+) /* If we have for example map and aoMap for the same object we need to preload them separately */
+/* ----------------------------------------------------------- */
 
 export default function Experience() {
   console.log("EXPERIENCE")

@@ -1,4 +1,8 @@
 {
   "environmentMapFiles": "/environmentMaps/kloofendal_48d_partly_cloudy_puresky_1k.hdr",
-  "modelPath": "/models/city-map-test-collection-instances-01.glb"
+  "cityBuildings": "/models/city-map-building-instances.glb",
+  "cityModels": "/models/city-map-test-models.glb",
+  "testTexture": {
+    "map": "/textures/testTexture.png"
+  }
 }
