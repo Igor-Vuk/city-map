@@ -197,9 +197,9 @@ const DirectionalLightControl = (
     castShadow: true,
     intensity: 2.8,
     position: {
-      x: -48,
-      y: 48,
-      z: -25,
+      x: -20,
+      y: 620,
+      z: 780,
     },
     color: "#ffffff",
   }
@@ -258,14 +258,14 @@ const ShadowCameraControl = (
 ): LevaTypes.ShadowCameraControlType => {
   const defaultValues: LevaTypes.ShadowCameraControlDefaultValues = {
     helper: false,
-    near: 39,
-    far: 85.8,
-    top: 12,
-    bottom: -25,
-    left: -7.3,
-    right: 20.6,
+    near: 560,
+    far: 1300,
+    top: 230,
+    bottom: -350,
+    left: -350,
+    right: 615,
     quality: 1024,
-    bias: 0,
+    bias: -0.0017,
     normalBias: 0,
   }
 
@@ -276,7 +276,7 @@ const ShadowCameraControl = (
       near: {
         value: defaultValues.near,
         min: 1,
-        max: 50,
+        max: 5000,
         step: 0.1,
         onChange: (value: number) => {
           if (directionalLightRef.current) {
@@ -288,7 +288,7 @@ const ShadowCameraControl = (
       far: {
         value: defaultValues.far,
         min: 1,
-        max: 100,
+        max: 10000,
         step: 0.1,
         onChange: (value: number) => {
           if (directionalLightRef.current) {
@@ -354,9 +354,9 @@ const ShadowCameraControl = (
       },
       bias: {
         value: defaultValues.bias,
-        min: -0.05,
-        max: 0.05,
-        step: 0.001,
+        min: -0.005,
+        max: 0.005,
+        step: 0.0001,
         onChange: (value: number) => {
           if (directionalLightRef.current) {
             directionalLightRef.current.shadow.bias = value

@@ -87,6 +87,7 @@ export default function Experience() {
         props are ignored: gl, camera, resize, orthographic, dpr. This is why toneMapping and outputColorSpace will not be 
         updated using leva but will still work on first render*/}
         <Canvas
+          shadows
           latitude={45.756005}
           longitude={15.934696}
           gl={{

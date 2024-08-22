@@ -18,7 +18,7 @@ const CityModels: FC<AssetProps> = ({ model, textures = null }) => {
   // const material = useMemo(() => new THREE.MeshBasicMaterial(), [])
 
   const material = useMemo(() => {
-    const mat = new THREE.MeshBasicMaterial() // Use MeshStandardMaterial or MeshPhysicalMaterial for more advanced features
+    const mat = new THREE.MeshStandardMaterial() // Use MeshStandardMaterial or MeshPhysicalMaterial for more advanced features
     /* Use texture if we pass it as a prop */
     if (textures) {
       Object.assign(mat, textures) // This will spread all texture properties onto the material
@@ -27,9 +27,7 @@ const CityModels: FC<AssetProps> = ({ model, textures = null }) => {
   }, [textures])
 
   const outlines = useMemo(
-    () => (
-      <Outlines screenspace={false} thickness={1.0} angle={Math.PI / 0.6} />
-    ),
+    () => <Outlines screenspace={true} thickness={0.1} angle={0} />,
     [],
   )
 
