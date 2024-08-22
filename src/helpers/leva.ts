@@ -48,7 +48,7 @@ export type ColorSpaceOptions = (typeof COLOR_SPACE_OPTIONS)[number]
 
 const CanvasControl = (): LevaTypes.CanvasControlType => {
   const defaultValues: LevaTypes.CanvasControlDefaultValues = {
-    toneMapping: "ACESFilmicToneMapping",
+    toneMapping: "NoToneMapping",
     colorSpace: "SRGBColorSpace",
   }
 

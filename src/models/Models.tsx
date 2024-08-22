@@ -8,7 +8,7 @@ const Models = () => {
   console.log("MODELS")
   /* -----------------------------Files------------------------------- */
 
-  const cityBuildingsFile = useGLTF(assetsPath.cityBuildings)
+  // const cityBuildingsFile = useGLTF(assetsPath.cityBuildings)
   const cityModelsFile = useGLTF(assetsPath.cityModels)
   const testTexture = useTexture(assetsPath.testTexture, (texture) => {
     /* adjustTexture here is just a reference and not executed immediately. By the time useTexture triggers a callback
@@ -32,9 +32,9 @@ const Models = () => {
 
   /* ----------------------Data--------------------- */
   /* We load two models because cityBuildings models are exported from Blender without materials while cityModels have them */
-  const cityBuildings: AssetProps = {
-    model: cityBuildingsFile,
-  }
+  // const cityBuildings: AssetProps = {
+  //   model: cityBuildingsFile,
+  // }
 
   const cityModels: AssetProps = {
     model: cityModelsFile,
@@ -43,7 +43,7 @@ const Models = () => {
 
   return (
     <>
-      <CityModels {...cityBuildings} key="cityBuildings" />
+      {/*  <CityModels {...cityBuildings} key="cityBuildings" /> */}
       <CityModels {...cityModels} key="cityModels" />
     </>
   )

@@ -3,6 +3,7 @@ import { Suspense, useEffect, useState, lazy } from "react"
 import { useLoader } from "@react-three/fiber"
 import { RGBELoader } from "three-stdlib"
 import { useGLTF, useTexture } from "@react-three/drei"
+import * as THREE from "three"
 import { Leva } from "leva"
 import assetsPath from "./data/assetsPath.json"
 
@@ -13,7 +14,7 @@ import Mapbox from "mapbox-gl"
 import "mapbox-gl/dist/mapbox-gl.css"
 
 // import Fallback from "./models/Fallback"  /* use Fallback component on Suspense if needed */
-import { SceneRenderControl } from "./helpers/leva"
+import { CanvasControl, SceneRenderControl } from "./helpers/leva"
 import DirectionalLight from "./scene/DirectionalLight"
 import SoftShadowsModifier from "./scene/SoftShadowsModifier"
 import AxesHelper from "./scene/AxesHelper"
@@ -37,6 +38,7 @@ export default function Experience() {
   console.log("EXPERIENCE")
 
   const sceneRender = SceneRenderControl()
+  const canvas = CanvasControl()
   const [showLeva, setShowLeva] = useState<boolean>(true) //  show or hide leva on first load
 
   useEffect(() => {
@@ -63,6 +65,8 @@ export default function Experience() {
     environment_map,
   } = sceneRender.values
 
+  const { toneMapping, colorSpace } = canvas.values
+
   const mapStyle = import.meta.env.VITE_MAPSTYLE
 
   return (
@@ -78,7 +82,18 @@ export default function Experience() {
           pitch: 51,
         }}
       >
-        <Canvas latitude={45.756005} longitude={15.934696}>
+        {/* Canvas is imported from react-three-map, not @react-three/fiber. Because the scene now lives in a map, 
+        we leave a lot of the render and camera control to the map, rather than to R3F, so the following <Canvas> 
+        props are ignored: gl, camera, resize, orthographic, dpr. This is why toneMapping and outputColorSpace will not be 
+        updated using leva but will still work on first render*/}
+        <Canvas
+          latitude={45.756005}
+          longitude={15.934696}
+          gl={{
+            toneMapping: THREE[toneMapping],
+            outputColorSpace: THREE[colorSpace],
+          }}
+        >
           {performance_monitor && <PerformanceMonitor />}
           {directional_lights && <DirectionalLight />}
           {soft_shadows && <SoftShadowsModifier />}
