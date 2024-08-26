@@ -6,12 +6,14 @@ import { useGLTF, useTexture } from "@react-three/drei"
 import * as THREE from "three"
 import { Leva } from "leva"
 import assetsPath from "./data/assetsPath.json"
+import { ZoomLevel } from "./models/models.types.ts"
 
 /* Mapbox imports */
 import Map from "react-map-gl"
 import { Canvas } from "react-three-map"
 import Mapbox from "mapbox-gl"
 import "mapbox-gl/dist/mapbox-gl.css"
+import { ViewStateChangeEvent } from "react-map-gl"
 
 // import Fallback from "./models/Fallback"  /* use Fallback component on Suspense if needed */
 import { CanvasControl, SceneRenderControl } from "./helpers/leva"
@@ -27,7 +29,6 @@ const Models = lazy(() => import("./models/Models"))
 
 /* ------------------- Preload ------------------------------- */
 useLoader.preload(RGBELoader, assetsPath.environmentMapFiles)
-useGLTF.preload(assetsPath.cityBuildings)
 useGLTF.preload(assetsPath.cityModels)
 useTexture.preload(
   assetsPath.testTexture.map,
@@ -40,6 +41,7 @@ export default function Experience() {
   const sceneRender = SceneRenderControl()
   const canvas = CanvasControl()
   const [showLeva, setShowLeva] = useState<boolean>(true) //  show or hide leva on first load
+  const [zoomLevel, setZoomLevel] = useState<ZoomLevel>("middleLevel") //  show or hide leva on first load
 
   useEffect(() => {
     /*  add event listener to show or hide leva when "h" button is pressed */
@@ -69,18 +71,33 @@ export default function Experience() {
 
   const mapStyle = import.meta.env.VITE_MAPSTYLE
 
+  const handleZoom = (event: ViewStateChangeEvent) => {
+    const zoom = event.viewState.zoom
+    console.log("ZOOM LEVEL", zoom)
+
+    if (zoom < 15) {
+      setZoomLevel("minLevel")
+    } else if (zoom <= 17) {
+      // Handles both zoom > 15 and zoom <= 17
+      setZoomLevel("middleLevel")
+    } else {
+      setZoomLevel("maxLevel")
+    }
+  }
   return (
     <>
       <Leva collapsed hidden={showLeva} />
       <Map
         antialias
+        minZoom={6}
         mapStyle={mapStyle}
         initialViewState={{
           latitude: 45.756005,
           longitude: 15.934696,
-          zoom: 16.0,
+          zoom: 15.0,
           pitch: 51,
         }}
+        onZoom={handleZoom}
       >
         {/* Canvas is imported from react-three-map, not @react-three/fiber. Because the scene now lives in a map, 
         we leave a lot of the render and camera control to the map, rather than to R3F, so the following <Canvas> 
@@ -106,7 +123,7 @@ export default function Experience() {
             </Suspense>
           )}
           <Suspense fallback={null}>
-            <Models />
+            <Models zoomLevel={zoomLevel} />
           </Suspense>
         </Canvas>
       </Map>

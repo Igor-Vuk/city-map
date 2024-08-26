@@ -1,7 +1,7 @@
 {
   "environmentMapFiles": "/environmentMaps/kloofendal_48d_partly_cloudy_puresky_1k.hdr",
-  "cityBuildings": "/models/city-map-building-instances.glb",
   "cityModels": "/models/city-map-test-collection-instances.glb",
+  "cityFonts": "/fonts/Caveat-Regular.ttf",
   "testTexture": {
     "map": "/textures/colorPallete.jpeg"
   }

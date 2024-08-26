@@ -414,7 +414,7 @@ const EnvironmentMapControl = (): LevaTypes.EnvironmentMapControlType => {
     backgroundIntensity: 0,
     backgroundRotation: [0, Math.PI / 2, 0],
     blur: 0,
-    environmentIntensity: 1.0,
+    environmentIntensity: 0.25,
     environmentRotation: [0, Math.PI / 2, 0],
   }
 

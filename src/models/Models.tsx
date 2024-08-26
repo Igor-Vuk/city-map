@@ -1,14 +1,15 @@
 import { useGLTF, useTexture } from "@react-three/drei"
-import { AssetProps } from "./models.types"
+import { AssetProps, ZoomLevel } from "./models.types"
 import * as THREE from "three"
 import CityModels from "./CityModels/CityModels"
+import CityText from "./CityText/CityText"
+// import CityBorder from "./CityBorder/CityBorder"
 import assetsPath from "../data/assetsPath.json"
 
-const Models = () => {
-  console.log("MODELS")
+const Models = ({ zoomLevel }: { zoomLevel: ZoomLevel }) => {
+  console.log("MODELS", zoomLevel)
   /* -----------------------------Files------------------------------- */
 
-  // const cityBuildingsFile = useGLTF(assetsPath.cityBuildings)
   const cityModelsFile = useGLTF(assetsPath.cityModels)
   const testTexture = useTexture(assetsPath.testTexture, (texture) => {
     /* adjustTexture here is just a reference and not executed immediately. By the time useTexture triggers a callback
@@ -30,21 +31,22 @@ const Models = () => {
     }
   }
 
-  /* ----------------------Data--------------------- */
-  /* We load two models because cityBuildings models are exported from Blender without materials while cityModels have them */
-  // const cityBuildings: AssetProps = {
-  //   model: cityBuildingsFile,
-  // }
-
   const cityModels: AssetProps = {
     model: cityModelsFile,
     textures: testTexture,
   }
 
+  const isVisible = zoomLevel === "middleLevel" || zoomLevel === "maxLevel"
+
   return (
     <>
-      {/*  <CityModels {...cityBuildings} key="cityBuildings" /> */}
-      <CityModels {...cityModels} key="cityModels" />
+      <group visible={isVisible}>
+        <CityModels {...cityModels} key="cityModels" />
+        <CityText />
+      </group>
+      {/* <group visible={!isVisible}>
+        <CityBorder />
+      </group> */}
     </>
   )
 }

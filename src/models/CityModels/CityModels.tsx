@@ -27,7 +27,7 @@ const CityModels: FC<AssetProps> = ({ model, textures = null }) => {
   }, [textures])
 
   const outlines = useMemo(
-    () => <Outlines screenspace={true} thickness={0.1} angle={0} />,
+    () => <Outlines screenspace={true} thickness={0.1} angle={Math.PI} />,
     [],
   )
 
@@ -49,9 +49,9 @@ const CityModels: FC<AssetProps> = ({ model, textures = null }) => {
     const groupGroups: { [key: string]: THREE.Group[] } = {}
 
     node.children.forEach((child) => {
-      /* property "name" inside of userData was added in Blender as a custom object property. This property was added to original object and to all instances of that object. 
-        It's the same name for original and instances. Based on that name we group all the meshes and groups with the same name to the same array. 
-        In Blender we also added boolean custom property "original" and set it to true for the original object and to false for instances. 
+      /* property "name" inside of userData was added in Blender as a custom object property. This property was added to original object and to all instances of that object.
+        It's the same name for original and instances. Based on that name we group all the meshes and groups with the same name to the same array.
+        In Blender we also added boolean custom property "original" and set it to true for the original object and to false for instances.
         We don't use it here but could be useful */
       const { name } = child.userData
       if (child instanceof THREE.Mesh && name) {
@@ -68,9 +68,9 @@ const CityModels: FC<AssetProps> = ({ model, textures = null }) => {
   }
 
   const renderNode = useMemo(() => {
-    /* groupedMeshesRef is used to store the result of grouping the meshes and groups from the THREE.Object3D (which is model.scene in this case). 
-    This grouping operation is relatively expensive, so by storing the result in a ref, it ensures that the grouping is done only once and reused 
-    across renders. This is run only when component first renders. useMemo will run again if its dependencies change but groupMeshesByUserDataName 
+    /* groupedMeshesRef is used to store the result of grouping the meshes and groups from the THREE.Object3D (which is model.scene in this case).
+    This grouping operation is relatively expensive, so by storing the result in a ref, it ensures that the grouping is done only once and reused
+    across renders. This is run only when component first renders. useMemo will run again if its dependencies change but groupMeshesByUserDataName
     will run only if model.scene changes */
     if (!groupedMeshesRef.current && model.scene) {
       groupedMeshesRef.current = groupMeshesByUserDataName(model.scene)
@@ -82,7 +82,7 @@ const CityModels: FC<AssetProps> = ({ model, textures = null }) => {
 
     console.log("CITY MODELS GROUPED MESHES", groupedMeshes)
 
-    /* when we export mesh from blender that has none or one material and we import it in Three.js we get THREE.Mesh but when we export a mesh that has multiple materials 
+    /* when we export mesh from blender that has none or one material and we import it in Three.js we get THREE.Mesh but when we export a mesh that has multiple materials
     we get THREE.Group with "children" property where every material turns into a separate mesh. Makes it much more complicated to work with instances so we don't use them*/
     const renderMeshInstances = (meshGroup: THREE.Mesh[]) => (
       <Instances

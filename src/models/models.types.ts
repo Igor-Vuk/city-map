@@ -6,3 +6,5 @@ export type AssetProps = {
   textures?: Record<string, THREE.Texture>
   actions?: Record<string, THREE.AnimationAction | null>
 }
+
+export type ZoomLevel = "minLevel" | "middleLevel" | "maxLevel"
