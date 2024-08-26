@@ -1,17 +1,18 @@
 import { useGLTF, useTexture } from "@react-three/drei"
-import { AssetProps, ZoomLevel } from "./models.types"
+import { ZoomLevel } from "./models.types"
 import * as THREE from "three"
+import { Suspense } from "react"
 import CityModels from "./CityModels/CityModels"
 import CityText from "./CityText/CityText"
-// import CityBorder from "./CityBorder/CityBorder"
+import CityBorder from "./CityBorder/CityBorder"
 import assetsPath from "../data/assetsPath.json"
+import useGroupedMeshes from "../customHooks/useGroupedMeshes.ts"
 
 const Models = ({ zoomLevel }: { zoomLevel: ZoomLevel }) => {
   console.log("MODELS", zoomLevel)
   /* -----------------------------Files------------------------------- */
-
   const cityModelsFile = useGLTF(assetsPath.cityModels)
-  const testTexture = useTexture(assetsPath.testTexture, (texture) => {
+  const modelsTexture = useTexture(assetsPath.modelsTexture, (texture) => {
     /* adjustTexture here is just a reference and not executed immediately. By the time useTexture triggers a callback
     and adjustTexture is run, it is already defined. This is why we can "call" it here before it is defined  */
     adjustTexture(texture)
@@ -31,22 +32,27 @@ const Models = ({ zoomLevel }: { zoomLevel: ZoomLevel }) => {
     }
   }
 
-  const cityModels: AssetProps = {
-    model: cityModelsFile,
-    textures: testTexture,
-  }
+  // Use the custom hook to get grouped meshes
+  const groupedMeshes = useGroupedMeshes(cityModelsFile.scene)
 
   const isVisible = zoomLevel === "middleLevel" || zoomLevel === "maxLevel"
 
+  /* Toggling the visible property is generally more efficient than 
+  unmounting and remounting components. Using visible keeps all WebGL 
+  resources (like geometries, materials, and textures) intact. 
+  There's no need to dispose of or recreate them */
   return (
     <>
       <group visible={isVisible}>
-        <CityModels {...cityModels} key="cityModels" />
-        <CityText />
+        <CityModels groupedMeshes={groupedMeshes} textures={modelsTexture} />
+        <Suspense>
+          <CityText />
+        </Suspense>
       </group>
-      {/* <group visible={!isVisible}>
-        <CityBorder />
-      </group> */}
+
+      <group visible={!isVisible}>
+        <CityBorder groupedMeshes={groupedMeshes} textures={modelsTexture} />
+      </group>
     </>
   )
 }

@@ -5,6 +5,7 @@ import { Text, Line } from "@react-three/drei"
 import * as THREE from "three"
 
 const CityText: FC = () => {
+  console.log("CITY TEXT")
   const textRef = useRef<THREE.Mesh>(null)
 
   useFrame(({ camera }) => {
@@ -27,7 +28,7 @@ const CityText: FC = () => {
         /* {...textOptions} */
       >
         Hello world!
-        <meshNormalMaterial side={THREE.DoubleSide} />
+        <meshBasicMaterial side={THREE.DoubleSide} color={"red"} />
       </Text>
       <Line
         points={[

@@ -31,7 +31,7 @@ const Models = lazy(() => import("./models/Models"))
 useLoader.preload(RGBELoader, assetsPath.environmentMapFiles)
 useGLTF.preload(assetsPath.cityModels)
 useTexture.preload(
-  assetsPath.testTexture.map,
+  assetsPath.modelsTexture.map,
 ) /* If we have for example map and aoMap for the same object we need to preload them separately */
 /* ----------------------------------------------------------- */
 
@@ -73,7 +73,6 @@ export default function Experience() {
 
   const handleZoom = (event: ViewStateChangeEvent) => {
     const zoom = event.viewState.zoom
-    console.log("ZOOM LEVEL", zoom)
 
     if (zoom < 15) {
       setZoomLevel("minLevel")
