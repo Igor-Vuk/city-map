@@ -1,5 +1,4 @@
-/* Components with preload inside that is executed as soon as the are imported */
-import { Suspense, useEffect, useState, lazy } from "react"
+import { Suspense, useEffect, useState, lazy, useRef } from "react"
 import { useLoader } from "@react-three/fiber"
 import { RGBELoader } from "three-stdlib"
 import { useGLTF, useTexture } from "@react-three/drei"
@@ -9,11 +8,10 @@ import assetsPath from "./data/assetsPath.json"
 import { ZoomLevel } from "./models/models.types.ts"
 
 /* Mapbox imports */
-import Map from "react-map-gl"
+import { ViewStateChangeEvent, Map, MapRef } from "react-map-gl"
 import { Canvas } from "react-three-map"
 import Mapbox from "mapbox-gl"
 import "mapbox-gl/dist/mapbox-gl.css"
-import { ViewStateChangeEvent } from "react-map-gl"
 
 // import Fallback from "./models/Fallback"  /* use Fallback component on Suspense if needed */
 import { CanvasControl, SceneRenderControl } from "./helpers/leva"
@@ -37,6 +35,8 @@ useTexture.preload(
 
 export default function Experience() {
   console.log("EXPERIENCE")
+
+  const mapRef = useRef<MapRef>(null)
 
   const sceneRender = SceneRenderControl()
   const canvas = CanvasControl()
@@ -83,18 +83,34 @@ export default function Experience() {
       setZoomLevel("maxLevel")
     }
   }
+
+  const handleDivClick = () => {
+    if (mapRef.current) {
+      mapRef.current.flyTo({
+        center: [15.934696, 45.756005],
+        zoom: 15,
+        speed: 1.2,
+        curve: 1,
+        essential: true, // If true, animation remains even if user interacts with map
+      })
+    } else {
+      console.warn("Map instance is not available!")
+    }
+  }
+
   return (
     <>
       <Leva collapsed hidden={showLeva} />
       <Map
+        ref={mapRef}
         antialias
         minZoom={6}
         maxZoom={20}
         maxPitch={70}
         mapStyle={mapStyle}
         initialViewState={{
-          latitude: 45.756005,
           longitude: 15.934696,
+          latitude: 45.756005,
           zoom: 15.0,
           pitch: 51,
         }}
@@ -128,6 +144,20 @@ export default function Experience() {
           </Suspense>
         </Canvas>
       </Map>
+      <div
+        onClick={handleDivClick}
+        style={{
+          position: "fixed",
+          top: "10px",
+          right: "10px",
+          padding: "10px",
+          backgroundColor: "white",
+          cursor: "pointer",
+          zIndex: 1000, // Ensure it's above the map and other elements
+        }}
+      >
+        <h2>Map Control</h2>
+      </div>
     </>
   )
 }

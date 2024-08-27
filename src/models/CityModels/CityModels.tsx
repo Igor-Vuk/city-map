@@ -47,7 +47,7 @@ const CityModels: FC<AssetProps> = ({
     /* when we export mesh from blender that has none or one material and we import it in Three.js we get THREE.Mesh but when we export a mesh that has multiple materials
     we get THREE.Group with "children" property where every material turns into a separate mesh. Makes it much more complicated to work with instances so we don't use them*/
     const renderMeshInstances = (meshGroup: THREE.Mesh[]) => {
-      /* custom condition if we dont want to render something here we exclude it using name */
+      /* custom condition if we don't want to render something here we exclude it using name */
       if (meshGroup[0].name !== "border") {
         return (
           <Instances
