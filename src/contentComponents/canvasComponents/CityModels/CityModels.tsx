@@ -1,6 +1,6 @@
 import { FC, useState, useMemo, useRef } from "react"
 import { useFrame } from "@react-three/fiber"
-import { AssetProps } from "../models.types"
+import { AssetProps } from "../canvasComponents.types"
 import { Instances, Instance, Outlines } from "@react-three/drei"
 import * as THREE from "three"
 /* import instanceTransformsData from "../../data/instanceTransforms.json" */

@@ -5,7 +5,7 @@ import { useGLTF, useTexture } from "@react-three/drei"
 import * as THREE from "three"
 import { Leva } from "leva"
 import assetsPath from "./data/assetsPath.json"
-import { ZoomLevel } from "./models/models.types.ts"
+import { ZoomLevel } from "./contentComponents/canvasComponents/canvasComponents.types.ts"
 
 /* Mapbox imports */
 import { ViewStateChangeEvent, Map, MapRef } from "react-map-gl"
@@ -13,17 +13,21 @@ import { Canvas } from "react-three-map"
 import Mapbox from "mapbox-gl"
 import "mapbox-gl/dist/mapbox-gl.css"
 
-// import Fallback from "./models/Fallback"  /* use Fallback component on Suspense if needed */
+// import Fallback from "./contentComponents/canvasComponents/fallback/Fallback" /* use Fallback component on Suspense if needed */
 import { CanvasControl, SceneRenderControl } from "./helpers/leva"
-import DirectionalLight from "./scene/DirectionalLight"
-import SoftShadowsModifier from "./scene/SoftShadowsModifier"
-import AxesHelper from "./scene/AxesHelper"
-import PerformanceMonitor from "./scene/PerformanceMonitor"
-import GridHelper from "./scene/GridHelper"
+import DirectionalLight from "./sceneComponents/DirectionalLight.tsx"
+import SoftShadowsModifier from "./sceneComponents/SoftShadowsModifier.tsx"
+import AxesHelper from "./sceneComponents/AxesHelper.tsx"
+import PerformanceMonitor from "./sceneComponents/PerformanceMonitor.tsx"
+import GridHelper from "./sceneComponents/GridHelper.tsx"
 
 /* By lazy loading we are separating bundles that load to the browser */
-const EnvironmentMap = lazy(() => import("./scene/EnvironmentMap"))
-const Models = lazy(() => import("./models/Models"))
+const EnvironmentMap = lazy(
+  () => import("./sceneComponents/EnvironmentMap.tsx"),
+)
+const Models = lazy(
+  () => import("./contentComponents/canvasComponents/Models.tsx"),
+)
 
 /* ------------------- Preload ------------------------------- */
 useLoader.preload(RGBELoader, assetsPath.environmentMapFiles)
@@ -146,6 +150,7 @@ export default function Experience() {
       </Map>
       <div
         onClick={handleDivClick}
+        className="text-3xl font-bold underline"
         style={{
           position: "fixed",
           top: "10px",

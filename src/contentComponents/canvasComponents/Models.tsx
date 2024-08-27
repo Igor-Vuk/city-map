@@ -1,12 +1,12 @@
 import { useGLTF, useTexture } from "@react-three/drei"
-import { ZoomLevel } from "./models.types"
+import { ZoomLevel } from "./canvasComponents.types.ts"
 import * as THREE from "three"
 import { Suspense } from "react"
-import CityModels from "./CityModels/CityModels"
-import CityText from "./CityText/CityText"
-import CityBorder from "./CityBorder/CityBorder"
-import assetsPath from "../data/assetsPath.json"
-import useGroupedMeshes from "../customHooks/useGroupedMeshes.ts"
+import CityModels from "./CityModels/CityModels.tsx"
+import CityText from "./CityText/CityText.tsx"
+import CityBorder from "./CityBorder/CityBorder.tsx"
+import assetsPath from "../../data/assetsPath.json"
+import useGroupedMeshes from "../../customHooks/useGroupedMeshes.ts"
 
 const Models = ({ zoomLevel }: { zoomLevel: ZoomLevel }) => {
   console.log("MODELS", zoomLevel)

@@ -1,6 +1,6 @@
 import { FC, useMemo } from "react"
 import * as THREE from "three"
-import { AssetProps } from "../models.types"
+import { AssetProps } from "../canvasComponents.types"
 
 const CityBorder: FC<AssetProps> = ({
   groupedMeshes = null,

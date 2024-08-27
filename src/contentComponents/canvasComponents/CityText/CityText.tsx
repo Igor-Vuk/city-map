@@ -1,6 +1,6 @@
 import { FC, useRef } from "react"
 import { useFrame } from "@react-three/fiber"
-import assetsPath from "../../data/assetsPath.json"
+import assetsPath from "../../../data/assetsPath.json"
 import { Text, Line } from "@react-three/drei"
 import * as THREE from "three"
 
