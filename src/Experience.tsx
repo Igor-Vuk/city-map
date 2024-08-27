@@ -89,6 +89,8 @@ export default function Experience() {
       <Map
         antialias
         minZoom={6}
+        maxZoom={20}
+        maxPitch={70}
         mapStyle={mapStyle}
         initialViewState={{
           latitude: 45.756005,
