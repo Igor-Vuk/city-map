@@ -11,7 +11,7 @@ const SceneRenderControl = (): LevaTypes.SceneRenderControlType => {
     environment_map: true,
     soft_shadows: false,
     axes_helper: false,
-    performance_monitor: true,
+    performance_monitor: false,
     grid_helper: false,
   }
 

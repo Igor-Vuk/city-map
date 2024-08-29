@@ -20,6 +20,7 @@ import SoftShadowsModifier from "./sceneComponents/SoftShadowsModifier.tsx"
 import AxesHelper from "./sceneComponents/AxesHelper.tsx"
 import PerformanceMonitor from "./sceneComponents/PerformanceMonitor.tsx"
 import GridHelper from "./sceneComponents/GridHelper.tsx"
+import CameraNavigation from "./contentComponents/regularComponents/CameraNavigation/CameraNavigation.tsx"
 
 /* By lazy loading we are separating bundles that load to the browser */
 const EnvironmentMap = lazy(
@@ -88,23 +89,10 @@ export default function Experience() {
     }
   }
 
-  const handleDivClick = () => {
-    if (mapRef.current) {
-      mapRef.current.flyTo({
-        center: [15.934696, 45.756005],
-        zoom: 15,
-        speed: 1.2,
-        curve: 1,
-        essential: true, // If true, animation remains even if user interacts with map
-      })
-    } else {
-      console.warn("Map instance is not available!")
-    }
-  }
-
   return (
     <>
       <Leva collapsed hidden={showLeva} />
+
       <Map
         ref={mapRef}
         antialias
@@ -115,11 +103,12 @@ export default function Experience() {
         initialViewState={{
           longitude: 15.934696,
           latitude: 45.756005,
-          zoom: 15.0,
+          zoom: 15.5,
           pitch: 51,
         }}
         onZoom={handleZoom}
       >
+        <CameraNavigation mapRef={mapRef} />
         {/* Canvas is imported from react-three-map, not @react-three/fiber. Because the scene now lives in a map, 
         we leave a lot of the render and camera control to the map, rather than to R3F, so the following <Canvas> 
         props are ignored: gl, camera, resize, orthographic, dpr. This is why toneMapping and outputColorSpace will not be 
@@ -148,21 +137,6 @@ export default function Experience() {
           </Suspense>
         </Canvas>
       </Map>
-      <div
-        onClick={handleDivClick}
-        className="text-3xl font-bold underline"
-        style={{
-          position: "fixed",
-          top: "10px",
-          right: "10px",
-          padding: "10px",
-          backgroundColor: "white",
-          cursor: "pointer",
-          zIndex: 1000, // Ensure it's above the map and other elements
-        }}
-      >
-        <h2>Map Control</h2>
-      </div>
     </>
   )
 }
