@@ -1,5 +1,6 @@
 import react from "@vitejs/plugin-react"
 import glsl from "vite-plugin-glsl"
+import path from "path"
 import { defineConfig } from "vite"
 import { visualizer } from "rollup-plugin-visualizer"
 
@@ -18,5 +19,10 @@ export default defineConfig({
     emptyOutDir: true,
     sourcemap: true,
     chunkSizeWarningLimit: 1600, // remove 500kb warning
+  },
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
   },
 })

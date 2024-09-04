@@ -10,6 +10,7 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "plugin:react-hooks/recommended",
     "plugin:@react-three/recommended",
+    "plugin:tailwindcss/recommended",
   ],
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parser: "@typescript-eslint/parser",
@@ -32,4 +33,29 @@ module.exports = {
       { ignoreRestSiblings: true },
     ],
   },
+  /* override rule for shadcn component eslint errors */
+  overrides: [
+    {
+      files: ["**/components/ui/*.tsx", "**/components/hooks/*.tsx"],
+      rules: {
+        "react/prop-types": [
+          2,
+          {
+            ignore: [
+              "className",
+              "variant",
+              "size",
+              "asChild",
+              "inset",
+              "children",
+              "sideOffset",
+              "checked",
+            ],
+          },
+        ],
+        "react-refresh/only-export-components": "off",
+        "tailwindcss/enforces-shorthand": "off",
+      },
+    },
+  ],
 }

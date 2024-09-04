@@ -1,11 +1,12 @@
 import { Suspense, useEffect, useState, lazy, useRef } from "react"
-import { useLoader } from "@react-three/fiber"
-import { RGBELoader } from "three-stdlib"
-import { useGLTF, useTexture } from "@react-three/drei"
+import { useGLTF, useTexture, useEnvironment } from "@react-three/drei"
 import * as THREE from "three"
 import { Leva } from "leva"
 import assetsPath from "./data/assetsPath.json"
 import { ZoomLevel } from "./contentComponents/canvasComponents/canvasComponents.types.ts"
+
+/* shadcn components */
+import { Toaster } from "@/components/ui/toaster"
 
 /* Mapbox imports */
 import { ViewStateChangeEvent, Map, MapRef } from "react-map-gl"
@@ -20,7 +21,7 @@ import SoftShadowsModifier from "./sceneComponents/SoftShadowsModifier.tsx"
 import AxesHelper from "./sceneComponents/AxesHelper.tsx"
 import PerformanceMonitor from "./sceneComponents/PerformanceMonitor.tsx"
 import GridHelper from "./sceneComponents/GridHelper.tsx"
-import CameraNavigation from "./contentComponents/regularComponents/CameraNavigation/CameraNavigation.tsx"
+import Menu from "./contentComponents/regularComponents/Menu/Menu.tsx"
 
 /* By lazy loading we are separating bundles that load to the browser */
 const EnvironmentMap = lazy(
@@ -31,7 +32,7 @@ const Models = lazy(
 )
 
 /* ------------------- Preload ------------------------------- */
-useLoader.preload(RGBELoader, assetsPath.environmentMapFiles)
+useEnvironment.preload({ files: assetsPath.environmentMapFiles })
 useGLTF.preload(assetsPath.cityModels)
 useTexture.preload(
   assetsPath.modelsTexture.map,
@@ -108,7 +109,11 @@ export default function Experience() {
         }}
         onZoom={handleZoom}
       >
-        <CameraNavigation mapRef={mapRef} />
+        <Suspense fallback={null}>
+          <Menu mapRef={mapRef} />
+        </Suspense>
+        <Toaster />
+
         {/* Canvas is imported from react-three-map, not @react-three/fiber. Because the scene now lives in a map, 
         we leave a lot of the render and camera control to the map, rather than to R3F, so the following <Canvas> 
         props are ignored: gl, camera, resize, orthographic, dpr. This is why toneMapping and outputColorSpace will not be 

@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom/client"
 import { StrictMode } from "react"
-import "./style.css"
+import "./index.css"
 
 import Experience from "./Experience"
 
