@@ -195,7 +195,7 @@ const DirectionalLightControl = (
   const defaultValues: LevaTypes.DirectionalLightControlDefaultValues = {
     helper: false,
     castShadow: true,
-    intensity: 2.8,
+    intensity: 2.21,
     position: {
       x: -20,
       y: 620,
@@ -217,7 +217,7 @@ const DirectionalLightControl = (
     intensity: {
       value: defaultValues.intensity,
       min: 0,
-      max: 10,
+      max: 50,
       step: 0.001,
       onChange: (value: number) => {
         if (directionalLightRef.current) {
@@ -414,8 +414,8 @@ const EnvironmentMapControl = (): LevaTypes.EnvironmentMapControlType => {
     backgroundIntensity: 0,
     backgroundRotation: [0, Math.PI / 2, 0],
     blur: 0,
-    environmentIntensity: 0.25,
-    environmentRotation: [0, Math.PI / 2, 0],
+    environmentIntensity: 0.4,
+    environmentRotation: [-0.8, -2.76, -0.62],
   }
 
   const [returnedValues, set] = useControls("environment_map", () => ({
@@ -435,7 +435,7 @@ const EnvironmentMapControl = (): LevaTypes.EnvironmentMapControlType => {
     environmentIntensity: {
       value: defaultValues.environmentIntensity,
       min: 0,
-      max: 2,
+      max: 20,
       step: 0.01,
     },
     environmentRotation: defaultValues.environmentRotation,

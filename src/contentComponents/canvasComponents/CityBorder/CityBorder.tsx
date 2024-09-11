@@ -10,7 +10,7 @@ const CityBorder: FC<AssetProps> = ({
 
   // Memoize the material to avoid re-creating it on each render
   const material = useMemo(() => {
-    const mat = new THREE.MeshBasicMaterial() // Use MeshStandardMaterial or MeshPhysicalMaterial for more advanced features
+    const mat = new THREE.MeshStandardMaterial() // Use MeshStandardMaterial or MeshPhysicalMaterial for more advanced features
     /* Use texture if we pass it as a prop */
     if (textures) {
       Object.assign(mat, textures) // This will spread all texture properties onto the material

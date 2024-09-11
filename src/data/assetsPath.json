@@ -3,6 +3,6 @@
   "cityModels": "/models/city-map-test-collection-instances.glb",
   "cityFonts": "/fonts/Caveat-Regular.ttf",
   "modelsTexture": {
-    "map": "/textures/colorPallete.jpeg"
+    "map": "/textures/simple-baked-city-map.jpg"
   }
 }
