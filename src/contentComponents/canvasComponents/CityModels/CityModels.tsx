@@ -20,6 +20,12 @@ const CityModels: FC<AssetProps> = ({
     /* Use texture if we pass it as a prop */
     if (textures) {
       Object.assign(mat, textures) // This will spread all texture properties onto the material
+
+      /* If we have displacement map, we can control it here */
+      if (textures.displacementMap) {
+        mat.displacementScale = 0.5 // Adjust the scale here
+        mat.displacementBias = 0 // Adjust the bias here
+      }
     }
     return mat
   }, [textures])

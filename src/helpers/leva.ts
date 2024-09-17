@@ -195,13 +195,13 @@ const DirectionalLightControl = (
   const defaultValues: LevaTypes.DirectionalLightControlDefaultValues = {
     helper: false,
     castShadow: true,
-    intensity: 2.21,
+    intensity: 5.0,
     position: {
-      x: -20,
-      y: 620,
-      z: 780,
+      x: -98,
+      y: 346,
+      z: 920,
     },
-    color: "#ffffff",
+    color: "#f9fffa",
   }
 
   const [returnedValues, set] = useControls("directional_lights", () => ({
@@ -258,14 +258,14 @@ const ShadowCameraControl = (
 ): LevaTypes.ShadowCameraControlType => {
   const defaultValues: LevaTypes.ShadowCameraControlDefaultValues = {
     helper: false,
-    near: 560,
-    far: 1300,
+    near: 505,
+    far: 1360,
     top: 230,
     bottom: -350,
     left: -350,
-    right: 615,
-    quality: 1024,
-    bias: -0.0017,
+    right: 705,
+    quality: 4096,
+    bias: -0.001,
     normalBias: 0,
   }
 
@@ -356,7 +356,7 @@ const ShadowCameraControl = (
         value: defaultValues.bias,
         min: -0.005,
         max: 0.005,
-        step: 0.0001,
+        step: 0.001,
         onChange: (value: number) => {
           if (directionalLightRef.current) {
             directionalLightRef.current.shadow.bias = value
@@ -414,8 +414,8 @@ const EnvironmentMapControl = (): LevaTypes.EnvironmentMapControlType => {
     backgroundIntensity: 0,
     backgroundRotation: [0, Math.PI / 2, 0],
     blur: 0,
-    environmentIntensity: 0.4,
-    environmentRotation: [-0.8, -2.76, -0.62],
+    environmentIntensity: 0.45,
+    environmentRotation: [1.0, -2.0, -0.9],
   }
 
   const [returnedValues, set] = useControls("environment_map", () => ({

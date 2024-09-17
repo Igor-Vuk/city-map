@@ -1,8 +1,11 @@
 {
-  "environmentMapFiles": "/environmentMaps/kloofendal_48d_partly_cloudy_puresky_1k.hdr",
-  "cityModels": "/models/city-map-test-collection-instances.glb",
+  "environmentMapFiles": "/environmentMaps/wide_street_02_1k.hdr",
+  "cityModels": "/models/city-map-models.glb",
   "cityFonts": "/fonts/Caveat-Regular.ttf",
   "modelsTexture": {
-    "map": "/textures/simple-baked-city-map.jpg"
+    "map": "/textures/DIFFUSE.jpg",
+    "aoMap": "/textures/AO.jpg",
+    "normalMap": "/textures/NORMAL.jpg",
+    "roughnessMap": "/textures/ROUGHNESS.jpg"
   }
 }
