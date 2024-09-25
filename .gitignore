@@ -7,3 +7,4 @@ stats.html
 .env
 .env*.local
 .env*.production
+src/coverage/
