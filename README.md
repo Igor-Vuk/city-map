@@ -11,11 +11,15 @@ Interactive 3D Map, improved with custom models
 5. run `npm run build` to build for deployment. This will also create `stats.html` file which is a **Rollup Visualizer** that we can open in any browser
 6. `npm run preview` to locally preview the production build
 
+7. `npm run test` to run vitest
+8. `npm run coverage` to generate coverage report
+
 ## What does it include?
 
 - `typescript`
 - `three`, `react-three/drei` and `react-three-fiber` installed and configure
 - `vite` and `vite.config.js` file. `Rollup` is used for bundling
+- `tests`configured tests(vitest) for use with typescript
 - `leva` GUI installed and configured to be used with basic features needed for webgl. Make your scene perfect using leva controls for:
 
   - _canvas control_
