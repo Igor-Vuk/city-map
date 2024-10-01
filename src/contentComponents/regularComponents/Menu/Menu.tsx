@@ -91,6 +91,7 @@ const Menu: FC<MenuProps> = ({ mapRef }) => {
                 <Button
                   className="z-10 h-4 rounded-full p-0"
                   onClick={handleToastOpen}
+                  aria-label="Show Navigation controls"
                 >
                   <InfoCircledIcon className=" size-4" />
                 </Button>
@@ -107,6 +108,7 @@ const Menu: FC<MenuProps> = ({ mapRef }) => {
                     href="https://www.linkedin.com/in/igorvukelic/"
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="LinkedIn"
                   >
                     <LinkedInLogoIcon className="size-6" />
                   </a>
@@ -116,6 +118,7 @@ const Menu: FC<MenuProps> = ({ mapRef }) => {
                     href="https://github.com/Igor-Vuk"
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="GitHub"
                   >
                     <GitHubLogoIcon className="size-6" />
                   </a>
