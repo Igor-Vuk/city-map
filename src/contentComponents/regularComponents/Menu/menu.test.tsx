@@ -122,7 +122,7 @@ describe("Menu Component", () => {
     })
 
     const GitHubLink = await screen.findByRole("link", {
-      name: /GitHub2/i,
+      name: /GitHub/i,
     })
 
     const expectedLinkedInAttributes = {

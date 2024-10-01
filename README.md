@@ -19,7 +19,7 @@ Interactive 3D Map, improved with custom models
 - `typescript`
 - `three`, `react-three/drei` and `react-three-fiber` installed and configure
 - `vite` and `vite.config.js` file. `Rollup` is used for bundling
-- `tests`configured tests(vitest) for use with typescript
+- `tests`configured tests(vitest) for use with typescript. Added node.js.yml file to trigger github actions and run tests on push to main branch.
 - `leva` GUI installed and configured to be used with basic features needed for webgl. Make your scene perfect using leva controls for:
 
   - _canvas control_
