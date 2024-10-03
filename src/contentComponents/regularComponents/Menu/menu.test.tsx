@@ -113,6 +113,49 @@ describe("Menu Component", () => {
     })
   })
 
+  it("should throw error when Botinec ic clicked and there is no ref.current", async () => {
+    /* since we are gonna exchange here mapRef with out mocked version, we will not use MenuMock so we need to setup stuff here */
+    const user = userEvent.setup()
+
+    /* vi.spyOn() is used to spy on existing methods or functions of objects. It allows you to monitor and control what happens 
+    when the method is called, but the original method remains intact unless explicitly overridden with mockImplementation() */
+    const consoleWarnSpy = vi
+      .spyOn(console, "warn")
+      .mockImplementation(() => {})
+
+    const mapRefMock = {
+      current: null,
+    } as Partial<MapRef> // telling TypeScript that this mock object will only have some properties of the full MapRef interface, and others can be omitted
+
+    // Replace mapRef with a mock object
+    render(<Menu mapRef={mapRefMock as RefObject<MapRef>} />)
+
+    const menuButton = screen.getByRole("button", { name: /Menu/i })
+
+    await user.click(menuButton)
+
+    const dropdownNavigationButton = await screen.findByRole("button", {
+      name: /Navigation/i,
+    })
+
+    await user.click(dropdownNavigationButton)
+
+    const dropdownBotinecButton = await screen.findByRole("button", {
+      name: /Botinec/i,
+    })
+
+    await user.click(dropdownBotinecButton)
+
+    // Ensure that flyTo method was called once
+    expect(consoleWarnSpy).toHaveBeenCalledWith(
+      "Map instance is not available!",
+    )
+
+    /* When you use spyOn, it alters the real method to track its usage. We need to call mockRestore() to restore the method to its original state after the test 
+    because it could persist and interfere with other tests.*/
+    consoleWarnSpy.mockRestore()
+  })
+
   it("should open toast when click on 'i' button", async () => {
     // Toaster component is in Experience.tsx not Menu.tsx so we must render it  here again in order to show up
 
