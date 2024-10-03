@@ -1,7 +1,7 @@
-import { describe, expect, it } from "vitest"
+import { describe, expect, it, vi } from "vitest"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import { ReactElement, FC, useRef } from "react"
+import { ReactElement, FC, useRef, RefObject } from "react"
 import { MapRef } from "react-map-gl"
 import { Toaster } from "@/components/ui/toaster"
 import Menu from "./Menu"
@@ -68,6 +68,49 @@ describe("Menu Component", () => {
     })
 
     expect(dropdownBotinecButton).toBeInTheDocument()
+  })
+
+  it("should fly back to Botinec when Botinec ic clicked", async () => {
+    /* since we are gonna exchange here mapRef with out mocked version, we will not use MenuMock so we need to setup stuff here */
+    const user = userEvent.setup()
+
+    // Spy on mapRef.current.flyTo
+    const flyToSpy = vi.fn()
+    const mapRefMock = {
+      current: {
+        flyTo: flyToSpy,
+      },
+    } as Partial<MapRef> // telling TypeScript that this mock object will only have some properties of the full MapRef interface, and others can be omitted
+
+    // Replace mapRef with a mock object
+    render(<Menu mapRef={mapRefMock as RefObject<MapRef>} />)
+
+    const menuButton = screen.getByRole("button", { name: /Menu/i })
+
+    await user.click(menuButton)
+
+    const dropdownNavigationButton = await screen.findByRole("button", {
+      name: /Navigation/i,
+    })
+
+    await user.click(dropdownNavigationButton)
+
+    const dropdownBotinecButton = await screen.findByRole("button", {
+      name: /Botinec/i,
+    })
+
+    await user.click(dropdownBotinecButton)
+
+    // Ensure that flyTo method was called once
+    expect(flyToSpy).toHaveBeenCalledTimes(1)
+
+    // Check that the correct parameters were passed to flyTo
+    expect(flyToSpy).toHaveBeenCalledWith({
+      center: [15.934696, 45.756005],
+      zoom: 15.5,
+      speed: 1.2,
+      curve: 1,
+    })
   })
 
   it("should open toast when click on 'i' button", async () => {
