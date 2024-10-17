@@ -23,6 +23,7 @@ export type SceneRenderControlType = {
 export type CanvasControlDefaultValues = {
   toneMapping: ToneMappingOptions
   colorSpace: ColorSpaceOptions
+  toneMappingExposure: number
 }
 
 export type CanvasControlType = {

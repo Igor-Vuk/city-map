@@ -1,11 +1,17 @@
 {
   "environmentMapFiles": "/environmentMaps/wide_street_02_1k.hdr",
-  "cityModels": "/models/city-map-models.glb",
+  "cityModel": "/models/city-map-models.glb",
   "cityFonts": "/fonts/Caveat-Regular.ttf",
-  "modelsTexture": {
-    "map": "/textures/DIFFUSE.jpg",
-    "aoMap": "/textures/AO.jpg",
-    "normalMap": "/textures/NORMAL.jpg",
-    "roughnessMap": "/textures/ROUGHNESS.jpg"
-  }
+  "modelsAssetsTexture": [
+    "/textures/DIFFUSE-assets.webp",
+    "/textures/ROUGHNESS-assets.webp",
+    "/textures/NORMAL-assets.webp",
+    "/textures/AO-assets.webp"
+  ],
+  "modelsTerrainTexture": [
+    "/textures/DIFFUSE-terrain.webp",
+    "/textures/ROUGHNESS-terrain.webp",
+    "/textures/NORMAL-terrain.webp",
+    "/textures/AO-terrain.webp"
+  ]
 }

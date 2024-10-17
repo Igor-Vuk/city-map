@@ -33,10 +33,9 @@ const Models = lazy(
 
 /* ------------------- Preload ------------------------------- */
 useEnvironment.preload({ files: assetsPath.environmentMapFiles })
-useGLTF.preload(assetsPath.cityModels)
-useTexture.preload(
-  assetsPath.modelsTexture.map,
-) /* If we have for example map and aoMap for the same object we need to preload them separately */
+useGLTF.preload(assetsPath.cityModel)
+useTexture.preload(assetsPath.modelsAssetsTexture)
+useTexture.preload(assetsPath.modelsTerrainTexture)
 /* ----------------------------------------------------------- */
 
 export default function Experience() {
@@ -73,7 +72,7 @@ export default function Experience() {
     environment_map,
   } = sceneRender.values
 
-  const { toneMapping, colorSpace } = canvas.values
+  const { toneMapping, colorSpace, toneMappingExposure } = canvas.values
 
   const mapStyle = import.meta.env.VITE_MAPSTYLE
 
@@ -102,10 +101,10 @@ export default function Experience() {
         maxPitch={70}
         mapStyle={mapStyle}
         initialViewState={{
-          longitude: 15.934696,
-          latitude: 45.756005,
-          zoom: 15.5,
-          pitch: 51,
+          longitude: 15.935,
+          latitude: 45.754,
+          zoom: 17.0,
+          pitch: 60,
         }}
         onZoom={handleZoom}
       >
@@ -116,8 +115,8 @@ export default function Experience() {
 
         {/* Canvas is imported from react-three-map, not @react-three/fiber. Because the scene now lives in a map, 
         we leave a lot of the render and camera control to the map, rather than to R3F, so the following <Canvas> 
-        props are ignored: gl, camera, resize, orthographic, dpr. This is why toneMapping and outputColorSpace will not be 
-        updated using leva but will still work on first render*/}
+        props are ignored: gl, camera, resize, orthographic, dpr. This is why toneMapping, outputColorSpace and exposure 
+        will not be updated using leva but will still work on first render*/}
         <Canvas
           shadows
           latitude={45.756005}
@@ -125,6 +124,7 @@ export default function Experience() {
           gl={{
             toneMapping: THREE[toneMapping],
             outputColorSpace: THREE[colorSpace],
+            toneMappingExposure: toneMappingExposure, // default is 1.0. It doesn't work with "NoToneMapping"
           }}
         >
           {performance_monitor && <PerformanceMonitor />}

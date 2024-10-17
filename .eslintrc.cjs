@@ -38,9 +38,11 @@ module.exports = {
     {
       files: ["**/components/ui/*.tsx", "**/components/hooks/*.tsx"],
       rules: {
-        'react/prop-types': 0 // This rule doesn't make sense with TypeScript because we are already checking types.
+        "react/prop-types": 0, // This rule doesn't make sense with TypeScript because we are already checking types.
         "react-refresh/only-export-components": "off",
         "tailwindcss/enforces-shorthand": "off",
+        "@typescript-eslint/no-unused-vars": "off",
+        "tailwindcss/no-custom-classname": "off",
       },
     },
   ],

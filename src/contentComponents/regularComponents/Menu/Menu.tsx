@@ -31,8 +31,8 @@ const Menu: FC<MenuProps> = ({ mapRef }) => {
   const handleDivClick = (): void => {
     if (mapRef.current) {
       mapRef.current.flyTo({
-        center: [15.934696, 45.756005],
-        zoom: 15.5,
+        center: [15.935, 45.754],
+        zoom: 16.0,
         speed: 1.2,
         curve: 1,
         // essential: true, // If true, animation remains even if user interacts with map

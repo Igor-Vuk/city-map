@@ -10,11 +10,24 @@ const CityBorder: FC<AssetProps> = ({
 
   // Memoize the material to avoid re-creating it on each render
   const material = useMemo(() => {
-    const mat = new THREE.MeshStandardMaterial() // Use MeshStandardMaterial or MeshPhysicalMaterial for more advanced features
-    /* Use texture if we pass it as a prop */
-    if (textures) {
-      Object.assign(mat, textures) // This will spread all texture properties onto the material
+    const mat = new THREE.MeshStandardMaterial()
+
+    if (textures && textures.length > 0) {
+      textures.forEach((texture) => {
+        if (texture.name === "diffuseTexture") {
+          mat.map = texture
+        } else if (texture.name === "roughnessTexture") {
+          mat.roughnessMap = texture
+        } else if (texture.name === "normalTexture") {
+          mat.normalMap = texture
+          // mat.normalScale = new THREE.Vector2(1.0, 1.0) // Adjust as needed
+        } else if (texture.name === "aoTexture") {
+          mat.aoMap = texture
+          // Handle any additional textures here
+        }
+      })
     }
+
     return mat
   }, [textures])
 

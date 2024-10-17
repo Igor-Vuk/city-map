@@ -38,6 +38,7 @@ const TONE_MAPPING_OPTIONS = [
   "CineonToneMapping",
   "ACESFilmicToneMapping",
   "AgXToneMapping",
+  "NeutralToneMapping",
   "CustomToneMapping",
 ] as const
 
@@ -50,6 +51,7 @@ const CanvasControl = (): LevaTypes.CanvasControlType => {
   const defaultValues: LevaTypes.CanvasControlDefaultValues = {
     toneMapping: "NoToneMapping",
     colorSpace: "SRGBColorSpace",
+    toneMappingExposure: 1.0, // 1.0 is default threejs value and it doesn't work with "NoToneMapping"
   }
 
   const [returnedValues, set] = useControls("canvas", () => ({
@@ -60,6 +62,12 @@ const CanvasControl = (): LevaTypes.CanvasControlType => {
     colorSpace: {
       value: defaultValues.colorSpace,
       options: COLOR_SPACE_OPTIONS,
+    },
+    toneMappingExposure: {
+      value: defaultValues.toneMappingExposure,
+      min: 0,
+      max: 10,
+      step: 0.1,
     },
     reset: button(() => {
       set({
@@ -72,6 +80,7 @@ const CanvasControl = (): LevaTypes.CanvasControlType => {
     values: {
       toneMapping: returnedValues.toneMapping as ToneMappingOptions,
       colorSpace: returnedValues.colorSpace as ColorSpaceOptions,
+      toneMappingExposure: returnedValues.toneMappingExposure,
     },
     set,
   }
@@ -195,13 +204,13 @@ const DirectionalLightControl = (
   const defaultValues: LevaTypes.DirectionalLightControlDefaultValues = {
     helper: false,
     castShadow: true,
-    intensity: 5.0,
+    intensity: 4.0,
     position: {
       x: -98,
       y: 346,
       z: 920,
     },
-    color: "#f9fffa",
+    color: "#ffffff",
   }
 
   const [returnedValues, set] = useControls("directional_lights", () => ({
@@ -264,8 +273,8 @@ const ShadowCameraControl = (
     bottom: -350,
     left: -350,
     right: 705,
-    quality: 4096,
-    bias: -0.001,
+    quality: 8192,
+    bias: -0.0001,
     normalBias: 0,
   }
 
@@ -343,7 +352,7 @@ const ShadowCameraControl = (
       },
       quality: {
         value: defaultValues.quality,
-        options: [128, 256, 512, 1024, 2048, 4096],
+        options: [128, 256, 512, 1024, 2048, 4096, 8192, 16384],
         onChange: (value: number) => {
           if (directionalLightRef.current) {
             const mapSizeValue = { x: value, y: value }
@@ -354,9 +363,9 @@ const ShadowCameraControl = (
       },
       bias: {
         value: defaultValues.bias,
-        min: -0.005,
-        max: 0.005,
-        step: 0.001,
+        min: -0.0005,
+        max: 0.0005,
+        step: 0.0001,
         onChange: (value: number) => {
           if (directionalLightRef.current) {
             directionalLightRef.current.shadow.bias = value
@@ -414,8 +423,8 @@ const EnvironmentMapControl = (): LevaTypes.EnvironmentMapControlType => {
     backgroundIntensity: 0,
     backgroundRotation: [0, Math.PI / 2, 0],
     blur: 0,
-    environmentIntensity: 0.45,
-    environmentRotation: [1.0, -2.0, -0.9],
+    environmentIntensity: 0.35,
+    environmentRotation: [0.0, -3.25, 5.46],
   }
 
   const [returnedValues, set] = useControls("environment_map", () => ({

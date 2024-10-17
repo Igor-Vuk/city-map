@@ -106,8 +106,8 @@ describe("Menu Component", () => {
 
     // Check that the correct parameters were passed to flyTo
     expect(flyToSpy).toHaveBeenCalledWith({
-      center: [15.934696, 45.756005],
-      zoom: 15.5,
+      center: [15.935, 45.754],
+      zoom: 16.0,
       speed: 1.2,
       curve: 1,
     })
