@@ -92,7 +92,7 @@ const Models = ({ zoomLevel }: { zoomLevel: ZoomLevel }) => {
           textures={adjustedModelsTerrainTexture}
         />
         <BuildingsModels groupedMeshes={groupedMeshes} />
-        <Suspense>
+        <Suspense fallback={null}>
           <CityText />
         </Suspense>
       </group>

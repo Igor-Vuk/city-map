@@ -4,7 +4,7 @@ import ReactThreeTestRenderer from "@react-three/test-renderer"
 
 import CityText from "./CityText"
 
-/* Mock must be declared before importing the component but it is is hoisted, 
+/* Mock must be declared before importing the component but it is hoisted, 
 meaning it will always be executed before any other code, regardless of where it's placed in the file. */
 
 /* ------------------------- */
@@ -24,18 +24,22 @@ vi.mock("@react-three/drei", async () => {
   specific parts of the module while leaving the rest unchanged. In this case we only want to mock Text component*/
   const actual = (await vi.importActual("@react-three/drei")) as any
 
+  /* React.forwardRef allows you to pass a ref through a component to one of its child DOM nodes. 
+    This is important because your CityText component relies on the textRef to control the text's orientation. */
+  const MockText = forwardRef(({ children, ...props }: any, ref: any) => {
+    return (
+      /* Instead of rendering Text we change it with mesh and just pass props to it and text */
+      <mesh {...props} text={children[0]} ref={ref} name="MockTextMesh">
+        {children}
+      </mesh>
+    )
+  })
+
+  MockText.displayName = "MockText"
+
   return {
     ...actual,
-    /* React.forwardRef allows you to pass a ref through a component to one of its child DOM nodes. 
-    This is important because your CityText component relies on the textRef to control the text's orientation. */
-    Text: forwardRef(({ children, ...props }: any, ref: any) => {
-      return (
-        /* Instead of rendering Text we change it with mesh and just pass props to it and text */
-        <mesh {...props} text={children[0]} ref={ref} name="MockTextMesh">
-          {children}
-        </mesh>
-      )
-    }),
+    Text: MockText,
   }
 })
 
@@ -44,6 +48,6 @@ describe("CityText Component", () => {
     const renderer = await ReactThreeTestRenderer.create(<CityText />)
 
     const meshChildren = renderer.scene.allChildren
-    expect(meshChildren.length).toBe(2)
+    expect(meshChildren.length).toBe(14)
   })
 })

@@ -9,3 +9,11 @@ export type AssetProps = {
 }
 
 export type ZoomLevel = "minLevel" | "middleLevel" | "maxLevel"
+
+export type BigNameValue = {
+  text: string
+  ref: React.RefObject<THREE.Mesh>
+  textPosition: [number, number, number]
+  lineStart: [number, number, number]
+  lineEnd: [number, number, number]
+}

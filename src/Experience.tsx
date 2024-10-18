@@ -14,7 +14,7 @@ import { Canvas } from "react-three-map"
 import Mapbox from "mapbox-gl"
 import "mapbox-gl/dist/mapbox-gl.css"
 
-// import Fallback from "./contentComponents/canvasComponents/fallback/Fallback" /* use Fallback component on Suspense if needed */
+import Fallback from "./contentComponents/canvasComponents/fallback/Fallback" /* use Fallback component on Suspense if needed */
 import { CanvasControl, SceneRenderControl } from "./helpers/leva"
 import DirectionalLight from "./sceneComponents/DirectionalLight.tsx"
 import SoftShadowsModifier from "./sceneComponents/SoftShadowsModifier.tsx"
@@ -137,7 +137,7 @@ export default function Experience() {
               <EnvironmentMap />
             </Suspense>
           )}
-          <Suspense fallback={null}>
+          <Suspense fallback={<Fallback />}>
             <Models zoomLevel={zoomLevel} />
           </Suspense>
         </Canvas>
