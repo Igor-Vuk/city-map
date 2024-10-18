@@ -9,8 +9,6 @@ const AssetModels: FC<AssetProps> = ({
   groupedMeshes = null,
   textures = null,
 }) => {
-  console.log("ASSET MODELS", groupedMeshes)
-
   const [ready, setReady] = useState(false)
   const instancesGroupRef = useRef<THREE.Group | null>(null)
 

@@ -6,8 +6,6 @@ const CityBorder: FC<AssetProps> = ({
   groupedMeshes = null,
   textures = null,
 }) => {
-  console.log("CITY BORDERS", groupedMeshes)
-
   // Memoize the material to avoid re-creating it on each render
   const material = useMemo(() => {
     const mat = new THREE.MeshStandardMaterial()

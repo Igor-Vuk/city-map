@@ -39,8 +39,6 @@ useTexture.preload(assetsPath.modelsTerrainTexture)
 /* ----------------------------------------------------------- */
 
 export default function Experience() {
-  console.log("EXPERIENCE")
-
   const mapRef = useRef<MapRef>(null)
 
   const sceneRender = SceneRenderControl()

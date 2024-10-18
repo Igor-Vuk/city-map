@@ -3,7 +3,6 @@ import { EnvironmentMapControl } from "../helpers/leva"
 import assetsPath from "../data/assetsPath.json"
 
 const EnvironmentMap = () => {
-  console.log("ENVIRONMENT")
   const environmentMap = EnvironmentMapControl()
 
   const environmentMapTexture = useEnvironment({

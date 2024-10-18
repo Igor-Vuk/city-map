@@ -11,7 +11,6 @@ import assetsPath from "../../data/assetsPath.json"
 import useGroupedMeshes from "../../customHooks/useGroupedMeshes.ts"
 
 const Models = ({ zoomLevel }: { zoomLevel: ZoomLevel }) => {
-  console.log("MODELS", zoomLevel)
   /* -----------------------------Files------------------------------- */
   const cityModelsFile = useGLTF(assetsPath.cityModel)
   const modelsAssetsTexture = useTexture(assetsPath.modelsAssetsTexture)

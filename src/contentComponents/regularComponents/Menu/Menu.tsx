@@ -50,9 +50,19 @@ const Menu: FC<MenuProps> = ({ mapRef }) => {
       description: (
         <div className="space-y-2 text-sm">
           {/* Adds spacing between lines */}
+          <p>
+            <u>Desktop</u>
+          </p>
           <p>Left Mouse - Move</p>
           <p>Right Mouse - Rotate</p>
+          <p>Scroll Wheel - Zoom</p>
           <p>SHIFT + Left Mouse(Drag) - Select location</p>
+          <p>
+            <u>Mobile</u>
+          </p>
+          <p>One finger - Move</p>
+          <p>Two fingers - Rotate</p>
+          <p>Pinch - Zoom</p>
         </div>
       ),
     })

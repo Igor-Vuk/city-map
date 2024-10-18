@@ -6,8 +6,6 @@ import * as THREE from "three"
 import { BigNameValue } from "../canvasComponents.types"
 
 const CityText: FC = () => {
-  console.log("CITY TEXT")
-
   const schoolRef = useRef<THREE.Mesh>(null)
   const footballRef = useRef<THREE.Mesh>(null)
   const jeruzalemRef = useRef<THREE.Mesh>(null)
