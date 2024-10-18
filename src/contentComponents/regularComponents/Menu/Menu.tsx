@@ -55,14 +55,14 @@ const Menu: FC<MenuProps> = ({ mapRef }) => {
           </p>
           <p>Left Mouse - Move</p>
           <p>Right Mouse - Rotate</p>
-          <p>Scroll Wheel - Zoom</p>
+          <p>Scroll Wheel - Zoom In/Out</p>
           <p>SHIFT + Left Mouse(Drag) - Select location</p>
           <p>
             <u>Mobile</u>
           </p>
           <p>One finger - Move</p>
           <p>Two fingers - Rotate</p>
-          <p>Pinch - Zoom</p>
+          <p>Pinch - Zoom In/Out</p>
         </div>
       ),
     })
