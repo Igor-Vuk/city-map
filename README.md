@@ -1,6 +1,10 @@
 # CITY MAP
 
-Interactive 3D Map, improved with custom models
+Link: https://city-map-chi.vercel.app/
+
+Interactive 3D Map with custom models for desktop and mobile.
+
+![alt text](Botinec.png)
 
 ## How to use it?
 
@@ -14,17 +18,38 @@ Interactive 3D Map, improved with custom models
 7. `npm run test` to run vitest
 8. `npm run coverage` to generate coverage report
 
+## Texture size
+
+The biggest files are textures. If faster performance is needed, you can easily reduce the quality of texture images for faster load.
+
+## Controls
+
+`Desktop`
+
+- Left Mouse - Move
+- Right Mouse - Rotate
+- Scroll Wheel - Zoom In/Out
+- SHIFT + Left Mouse(Drag) - Select location
+
+`Mobile`
+
+- One finger - Move
+- Two fingers - Rotate
+- Pinch - Zoom In/Out
+
 ## What does it include?
 
 - `typescript`
-- `three`, `react-three/drei` and `react-three-fiber` installed and configure
+- `tailwindcss` for custom styles
+- `shadcnui` library for css components
+- `threejs`, `react-three/drei`, `react-three-fiber`, `react-map-gl`, `mapbox` installed and configure
 - `vite` and `vite.config.js` file. `Rollup` is used for bundling
 - `tests`configured tests(vitest) for use with typescript. Added node.js.yml file to trigger github actions and run tests on push to main branch.
+- `performance` keep eye on performance using r3f-perf
+- `eslint` configured with custom rules
 - `leva` GUI installed and configured to be used with basic features needed for webgl. Make your scene perfect using leva controls for:
 
   - _canvas control_
-  - _camera control_
-  - _controls control_
   - _directional light control_
   - _shadow camera control_
   - _soft shadow control_
@@ -45,21 +70,4 @@ Interactive 3D Map, improved with custom models
   - **model loading** - takes compressed and normal version (.glb),
   - **texture loading** - add any texture (diffuse, AO...),
   - **environment map loading**
-  - **action, morph, skinned animation loading** - just play different type of animations
-  - **curve loading and follow path** - by loading `.json` file with vertices coordinate and calling the `curveMethod` function we can load curves as a mesh or make object follow them (example included)
   - **assets preloading** - assets like model, texture, hdr... are preloaded so that app starts quicker
-
-- `Custom shaders loading` - create your own custom shaders. Ability to load `.glsl` files is added to vite. Basic fragment and vertex shader example is added and loaded using `shaderMaterial` from drei for ease of use with react components. Hot reload for fragment and vertex shader files is also implemented.
-
-- `Physics` - implement physics easy using **react-three-rapier** library.
-
-- `Custom collection names` - render specific model collections in every components based on custom properties
-
-- `Suspense` for loading included with option to use **fallback** or **Loader** from drei
-
-- `eslint` and `.eslintrc.cjs` configured for linting the files
-- `prettier` and `prettierrc.json` configured for code formatting
-
-  - recommended VSCode extensions are: **ESlin** and **Prettier ESLint** in order to make linting and formatting live while typing
-
-- `index.css` file for styling, includes `shadcn` library and `tailwind`
